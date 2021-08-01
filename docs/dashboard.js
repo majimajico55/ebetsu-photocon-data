@@ -41,7 +41,7 @@ areaOption = JSON.parse(JSON.stringify(option));
 
 async function setData(targetDate) {
 
-  let result = await fetch(`/data/${targetDate}.json`)
+  let result = await fetch(`./data/${targetDate}.json`)
     .then(response => response.text())
     .then(data => data);
 
