@@ -1,14 +1,17 @@
 var chartDom = document.getElementById('chart');
 var areaChartDom = document.getElementById('chartArea');
+var heatMapDom = document.getElementById('heatMap');
 
 var chart = echarts.init(chartDom);
 var areaChart = echarts.init(areaChartDom);
-var option, areaOption, data;
+var heatMap = echarts.init(heatMapDom);
+var option, option4HeatMap, areaOption, data;
 
 option = {
   grid: {
       top:10,
-      left:285
+      left:285,
+      bottom:40
   },
   tooltip: {
       trigger: 'axis',
@@ -35,6 +38,49 @@ option = {
       }
 
   }]
+};
+
+option4HeatMap = {
+  animation: false,
+  tooltip: {
+      trigger: 'item'
+  },
+  leaflet: {
+    center: [141.53599253908973, 43.103994672633654],
+    zoom: 13,
+    roam: true
+  },
+  visualMap: {
+      show: false,
+      top: 'top',
+      min: 0,
+      max: 1,
+      seriesIndex: 0,
+      calculable: true,
+      inRange: {
+          color: ['blue', 'blue', 'green', 'yellow', 'red']
+      }
+  },
+  series: [{
+      type: 'heatmap',
+      coordinateSystem: 'leaflet',
+      data: [],
+      pointSize: 30,
+      blurSize: 25
+  },
+  {
+      type: 'scatter',
+      coordinateSystem: 'leaflet',
+      data: [],
+      symbol: 'image://data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7',
+      tooltip: {
+        formatter: function(data) {
+          return `【${data.name}】 ${data.value[2]} 投稿`
+        },
+        show: true
+      },
+      symbolSize: 10
+  }]  
 };
 
 areaOption = JSON.parse(JSON.stringify(option));
@@ -72,6 +118,18 @@ async function setData(targetDate) {
   dataDom.textContent = `${targetDate} 時点`;
 
   document.getElementById('sidebarMenu').classList.remove("show");
+
+  var points = [].concat.apply(data.map(function (item) {
+    return {name: item.name, value: [item.lon, item.lat, item.value]}
+  }));
+  option4HeatMap.series[0].data = points;
+  option4HeatMap.series[1].data = points;
+  option4HeatMap.visualMap.max = Math.max(...[].concat.apply(data.map(function (item) {
+    return parseInt(item.value)
+  }))) * 0.8;
+
+  option4HeatMap && heatMap.setOption(option4HeatMap);
+
 };
 
 var itemDom = document.getElementsByClassName('item');
