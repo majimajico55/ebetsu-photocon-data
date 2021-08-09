@@ -115,7 +115,7 @@ async function setData(targetDate) {
   areaOption && areaChart.setOption(areaOption);
 
   var dataDom = document.getElementById('date');
-  dataDom.textContent = `${targetDate} 時点`;
+  dataDom.textContent = `${targetDate} 時点の投稿状況`;
 
   document.getElementById('sidebarMenu').classList.remove("show");
 
