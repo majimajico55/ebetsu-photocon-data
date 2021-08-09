@@ -61,6 +61,7 @@ async function setData(targetDate) {
     }
   }
 
+  areaOption.grid.left = 120;
   areaOption.yAxis.data = Array.from(areaData.entries()).map(obj => { return obj[0] });
   areaOption.series[0].data = Array.from(areaData.entries()).map(obj => { return obj[1] });
 
@@ -68,7 +69,7 @@ async function setData(targetDate) {
   areaOption && areaChart.setOption(areaOption);
 
   var dataDom = document.getElementById('date');
-  dataDom.textContent = `${targetDate}時点`;
+  dataDom.textContent = `${targetDate} 時点`;
 
   document.getElementById('sidebarMenu').classList.remove("show");
 };
