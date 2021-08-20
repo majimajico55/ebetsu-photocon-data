@@ -47,7 +47,7 @@ option4HeatMap = {
   },
   leaflet: {
     center: [141.53599253908973, 43.103994672633654],
-    zoom: 13,
+    zoom: 12,
     roam: true
   },
   visualMap: {
