@@ -96,6 +96,13 @@ async function setData(targetDate) {
   option.yAxis.data = data.map(obj => {return obj.name});
   option.series[0].data = data?.map(obj => {return obj.value});
 
+  if (window.screen.width < 576) {
+    option.grid.left = 100;
+
+    option.yAxis.axisLabel.width = 90;
+    option.yAxis.axisLabel.overflow = 'truncate';
+  }
+
   let areaData = new Map();
   for (const v of data) {
 
