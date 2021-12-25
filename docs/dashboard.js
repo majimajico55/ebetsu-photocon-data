@@ -116,7 +116,7 @@ async function setData(targetDate) {
   }
 
   areaOption.grid.left = 120;
-  areaOption.xAxis.max = 300;
+  areaOption.xAxis.max = 400;
   areaOption.yAxis.data = Array.from(areaData.entries()).map(obj => { return obj[0] });
   areaOption.series[0].data = Array.from(areaData.entries()).map(obj => { return obj[1] });
 
