@@ -21,7 +21,7 @@ option = {
   },
   xAxis: {
     type: 'value',
-    max: 60
+    max: 70
   },
   yAxis: {
     type: 'category',
